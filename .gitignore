@@ -118,3 +118,5 @@ iOSInjectionProject/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.toptal.com/developers/gitignore/api/xcode,swift,git
+# API Key 값 감추기
+.xcconfig
