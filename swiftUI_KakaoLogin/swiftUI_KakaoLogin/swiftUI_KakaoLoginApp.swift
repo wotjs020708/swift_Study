@@ -13,7 +13,7 @@ import KakaoSDKUser
 @main
 struct swiftUI_KakaoLoginApp: App {
     init () {
-        let kakaoAppKey = Bundle.main.infoDictionary?["KAKAO_NAITIVE_APP_KEY"] ?? ""
+        let kakaoAppKey = Bundle.main.infoDictionary?["KAKAO_NATIVE_APP_KEY"] ?? ""
         KakaoSDK.initSDK(appKey: kakaoAppKey as! String)
     }
     var body: some Scene {
