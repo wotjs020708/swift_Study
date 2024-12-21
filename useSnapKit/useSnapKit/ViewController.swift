@@ -17,6 +17,15 @@ class ViewController: UIViewController {
         
         return label
     }()
+
+    private lazy var button: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("SnapKit", for: .normal)
+        button.backgroundColor = .green
+        
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,11 +37,16 @@ class ViewController: UIViewController {
     func setupUI() {
         self.view.backgroundColor = .blue
         self.view.addSubview(label)
-        
+        self.view.addSubview(button)
         label.snp.makeConstraints { make in
             make.width.height.equalTo(100)
             make.center.equalToSuperview()
             
+        }
+        button.snp.makeConstraints { mae in
+                
+            mae.width.height.equalTo(100)
+            mae.center.equalToSuperview()
         }
         
 //        NSLayoutConstraint.activate([
