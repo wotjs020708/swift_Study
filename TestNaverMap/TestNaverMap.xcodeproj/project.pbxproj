@@ -6,13 +6,30 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4BFF8E722DA793AE005C62A1 /* NMapsMap in Frameworks */ = {isa = PBXBuildFile; productRef = 4BFF8E712DA793AE005C62A1 /* NMapsMap */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		4BFF8E622DA7924E005C62A1 /* TestNaverMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestNaverMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4BFF8E742DA793E5005C62A1 /* Exceptions for "TestNaverMap" folder in "TestNaverMap" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 4BFF8E612DA7924E005C62A1 /* TestNaverMap */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		4BFF8E642DA7924E005C62A1 /* TestNaverMap */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4BFF8E742DA793E5005C62A1 /* Exceptions for "TestNaverMap" folder in "TestNaverMap" target */,
+			);
 			path = TestNaverMap;
 			sourceTree = "<group>";
 		};
@@ -23,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BFF8E722DA793AE005C62A1 /* NMapsMap in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +83,7 @@
 			);
 			name = TestNaverMap;
 			packageProductDependencies = (
+				4BFF8E712DA793AE005C62A1 /* NMapsMap */,
 			);
 			productName = TestNaverMap;
 			productReference = 4BFF8E622DA7924E005C62A1 /* TestNaverMap.app */;
@@ -94,6 +113,9 @@
 			);
 			mainGroup = 4BFF8E592DA7924E005C62A1;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4BFF8E702DA793AE005C62A1 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4BFF8E632DA7924E005C62A1 /* Products */;
 			projectDirPath = "";
@@ -253,6 +275,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TestNaverMap/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "해당 앱은 플레이스 정보 조회를 위해 사용자의 현위츠를 필요로 합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -280,6 +304,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TestNaverMap/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "해당 앱은 플레이스 정보 조회를 위해 사용자의 현위츠를 필요로 합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -320,6 +346,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4BFF8E702DA793AE005C62A1 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/navermaps/SPM-NMapsMap";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.21.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4BFF8E712DA793AE005C62A1 /* NMapsMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4BFF8E702DA793AE005C62A1 /* XCRemoteSwiftPackageReference "SPM-NMapsMap" */;
+			productName = NMapsMap;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4BFF8E5A2DA7924E005C62A1 /* Project object */;
 }
