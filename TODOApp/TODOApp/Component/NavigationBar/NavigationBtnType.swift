@@ -7,3 +7,7 @@
 
 import Foundation
 
+enum NvaigationBtnType {
+    case add
+
+}

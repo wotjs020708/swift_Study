@@ -9,53 +9,98 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+        VStack {
+            TitleView()
+            Spacer()
+                .frame(height: 16)
+            SubTitleView(subTitle: .todo)
+            TodoListViewCell(color: .todo)
+            SubTitleView(subTitle: .inProgress)
+            TodoListViewCell(color: .inProgress)
+            SubTitleView(subTitle: .done)
+            TodoListViewCell(color: .done)
+            Spacer()
+            
+        }
+        .padding(.top,20)
+        .padding(.horizontal, 16)
+        
+    }
+}
+//MARK: - TitleView
+private struct TitleView: View {
+    fileprivate var body: some View {
+        HStack{
+            Text("TODO")
+                .font(.system(size: 40, weight: .bold))
+            Spacer()
+            
+            Button(
+                action: { },
+                label: {
+                    Image(systemName: "plus")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 28)
+                        .foregroundStyle(.black)
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
+            )
+            
         }
     }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
+}
+// MARK: - subTitleView
+private struct SubTitleView: View {
+    var subTitle: SubTitleType
+    
+    fileprivate var body: some View {
+        HStack{
+            Text(subTitle.rawValue)
+                .font(.system(size: 16, weight: .bold))
+                .foregroundStyle(Color(.lightGray))
+                
+            Spacer()
         }
     }
+}
+// MARK: - TODOListView
+private struct TodoListView: View {
+    fileprivate var body: some View {
+            //TODO: 리스트 뷰 만들기
+    }
+}
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
+// MARK: - TODOListCellView
+private struct TodoListViewCell: View {
+    var color: Color
+    fileprivate var body: some View {
+        ZStack {
+            Rectangle()
+                .foregroundStyle(color)
+                .cornerRadius(24)
+            VStack {
+                HStack {
+                    Text("Text")
+                        .font(.system(size: 40, weight: .bold))
+                        .foregroundStyle(.white)
+                    Spacer()
+                }
+                Spacer()
+                    .frame(height: 60)
+                HStack{
+                    Text("data: 2000-0000")
+                        .font(.system(size:16, weight: .bold ))
+                        .foregroundStyle(.white)
+                    Spacer()
+                }
+            }.padding(16)
         }
     }
 }
 
+
 #Preview {
     HomeView()
-        .modelContainer(for: Item.self, inMemory: true)
+    
 }
