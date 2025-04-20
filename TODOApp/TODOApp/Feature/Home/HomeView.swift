@@ -9,6 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
+    
+    var todoList: [SubTitleType] = [.done, .inProgress, .todo]
     var body: some View {
         VStack {
             TitleView()
@@ -66,7 +68,14 @@ private struct SubTitleView: View {
 }
 // MARK: - TODOListView
 private struct TodoListView: View {
+    var subTitles: [SubTitleType]
+    
     fileprivate var body: some View {
+        ScrollView {
+            List(subTitles, id: \.self) { subTitle in
+                SubTitleView(subTitle: subTitle)
+            }
+        }
             //TODO: 리스트 뷰 만들기
     }
 }
