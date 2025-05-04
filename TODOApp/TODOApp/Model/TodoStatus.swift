@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SubTitleType: String {
+enum TodoStatus: String {
     case todo = "Todo"
     case done = "Done"
     case inProgress = "In Progress"
