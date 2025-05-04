@@ -10,12 +10,14 @@ import SwiftUI
 struct CustomNavigationBar: View {
     let isDisplayLeftBtn: Bool
     let isDisplayRightBtn: Bool
+    let titleText: String?
     let leftBtnAction: () -> Void
     let rightBtnAction: () -> Void
     let rightBtnType: NvaigationBtnType
     
     init(isDisplayLeftBtn: Bool = true,
          isDisplayRightBtn: Bool = true,
+         titleText: String? = nil,
          leftBtnAction: @escaping () -> Void = {},
          rightBtnAction: @escaping () -> Void = {},
          rightBtnType: NvaigationBtnType = .add
@@ -25,6 +27,7 @@ struct CustomNavigationBar: View {
         self.leftBtnAction = leftBtnAction
         self.rightBtnAction = rightBtnAction
         self.rightBtnType = rightBtnType
+        self.titleText = titleText
     }
     
     var body: some View {
@@ -39,7 +42,9 @@ struct CustomNavigationBar: View {
                 )
                 
                 Spacer()
-                
+                Text(titleText ?? "")
+                    .font(.system(size: 17, weight: .semibold))
+                Spacer()
                 if isDisplayRightBtn {
                     Button(
                         action: rightBtnAction,
