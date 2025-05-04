@@ -9,24 +9,30 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query private var todos: [Todo]
     
-    var todoList: [SubTitleType] = [.done, .inProgress, .todo]
     var body: some View {
-        VStack {
-            TitleView()
-            Spacer()
-                .frame(height: 16)
-            SubTitleView(subTitle: .todo)
-            TodoListViewCell(color: .todo)
-            SubTitleView(subTitle: .inProgress)
-            TodoListViewCell(color: .inProgress)
-            SubTitleView(subTitle: .done)
-            TodoListViewCell(color: .done)
-            Spacer()
-            
+        NavigationStack {
+            ScrollView(showsIndicators: false) {
+                TitleView()
+                if(todos.isEmpty){
+                    Spacer()
+                        .frame(height: 200)
+                    Text("Empty Todo")
+                        .font(.system(size: 20, weight: .light))
+                    Spacer()
+                } else {
+                    TodoListView(todos: todos)
+                }
+                
+                
+            }
+            .padding(.top,20)
+            .padding(.horizontal, 16)
         }
-        .padding(.top,20)
-        .padding(.horizontal, 16)
+        .navigationBarBackButtonHidden(true)
+
         
     }
 }
@@ -38,71 +44,99 @@ private struct TitleView: View {
                 .font(.system(size: 40, weight: .bold))
             Spacer()
             
-            Button(
-                action: { },
-                label: {
-                    Image(systemName: "plus")
+            NavigationLink(
+                destination: TodoAddView(),
+                label: { Image(systemName: "plus")
                         .resizable()
                         .scaledToFit()
                         .frame(height: 28)
                         .foregroundStyle(.black)
                 }
-            )
+            ).navigationBarBackButtonHidden(true)
             
         }
     }
 }
+
 // MARK: - subTitleView
 private struct SubTitleView: View {
-    var subTitle: SubTitleType
+    var subTitle: TodoStatus
     
     fileprivate var body: some View {
         HStack{
             Text(subTitle.rawValue)
                 .font(.system(size: 16, weight: .bold))
                 .foregroundStyle(Color(.lightGray))
-                
             Spacer()
         }
     }
 }
+
 // MARK: - TODOListView
 private struct TodoListView: View {
-    var subTitles: [SubTitleType]
+    var todos: [Todo]
     
     fileprivate var body: some View {
-        ScrollView {
-            List(subTitles, id: \.self) { subTitle in
-                SubTitleView(subTitle: subTitle)
+        
+        SubTitleView(subTitle: .todo)
+        ForEach(todos) { todo in
+            if todo.status == TodoStatus.todo.rawValue {
+                TodoListViewCell(todo: todo)
             }
         }
-            //TODO: 리스트 뷰 만들기
-    }
+        Spacer()
+        SubTitleView(subTitle: .inProgress)
+        ForEach(todos) { todo in
+            if todo.status == TodoStatus.inProgress.rawValue {
+                TodoListViewCell(todo: todo)
+            }
+        }
+        Spacer()
+        SubTitleView(subTitle: .done)
+        ForEach(todos) { todo in
+            if todo.status == TodoStatus.done.rawValue {
+                TodoListViewCell(todo: todo)
+            }
+        }
+        Spacer()
+        
+        }
 }
 
 // MARK: - TODOListCellView
 private struct TodoListViewCell: View {
-    var color: Color
+    var todo: Todo
     fileprivate var body: some View {
         ZStack {
             Rectangle()
-                .foregroundStyle(color)
+                .foregroundStyle(
+                    todo.status == "Todo" ? .todo :
+                    todo.status == "Done" ? .done : .inProgress)
                 .cornerRadius(24)
             VStack {
                 HStack {
-                    Text("Text")
+                    Text(todo.title)
                         .font(.system(size: 40, weight: .bold))
                         .foregroundStyle(.white)
                     Spacer()
                 }
                 Spacer()
                     .frame(height: 60)
-                HStack{
-                    Text("data: 2000-0000")
-                        .font(.system(size:16, weight: .bold ))
-                        .foregroundStyle(.white)
-                    Spacer()
-                }
+                if todo.endDate != nil {
+                    HStack{
+                        Text("data: \(todo.startDate)-\(String(describing: todo.endDate))")
+                            .font(.system(size:16, weight: .bold ))
+                            .foregroundStyle(.white)
+                        Spacer()
+                    }
+                    } else {
+                        HStack {
+                            Text("data: \(todo.startDate)")
+                                .font(.system(size:16, weight: .bold ))
+                                .foregroundStyle(.white)
+                        }
+                    }
+               
             }.padding(16)
         }
     }
