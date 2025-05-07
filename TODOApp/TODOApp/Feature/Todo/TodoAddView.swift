@@ -29,15 +29,12 @@ struct TodoAddView: View {
                 dismiss()
                 
             }
-            
-            
-            
         )
         ScrollView {
             VStack {
-                
                 subTitleView(text: "Title")
                 TitleTextField(text: $title)
+                    .frame(height: 56)
                 Spacer()
                     .frame(height: 16)
                 subTitleView(text: "Date")
@@ -50,7 +47,7 @@ struct TodoAddView: View {
                 subTitleView(text: "Note")
                 Spacer()
                     .frame(height: 8)
-                NoteTextField(text: $note)
+                NoteTextField(text: $note)            .frame(height: 500)
                 Spacer()
                 
             }
@@ -67,7 +64,7 @@ private struct TitleTextField: View {
         TextField("Text", text: text)
             .padding(16)
             .font(.system(size: 24, weight: .medium))
-            .frame(width: .infinity, height: 56)
+            .frame(maxWidth: .infinity)
             .background(Color.gray.opacity(0.2))
             .cornerRadius(16)
     }
@@ -82,8 +79,7 @@ private struct NoteTextField: View {
             .padding(16)
             .background(.gray.opacity(0.2))
             .cornerRadius(16)
-            .frame(width: .infinity, height: 500)
-            
+            .frame(maxWidth: .infinity)
         
     }
 }
