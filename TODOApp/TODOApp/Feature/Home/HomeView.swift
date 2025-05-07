@@ -32,7 +32,7 @@ struct HomeView: View {
             .padding(.horizontal, 16)
         }
         .navigationBarBackButtonHidden(true)
-
+        
         
     }
 }
@@ -77,41 +77,52 @@ private struct TodoListView: View {
     var todos: [Todo]
     
     fileprivate var body: some View {
-        
+
         SubTitleView(subTitle: .todo)
         ForEach(todos) { todo in
             if todo.status == TodoStatus.todo.rawValue {
-                TodoListViewCell(todo: todo)
+                NavigationLink(destination:TodoDetailView(todo: todo) , label:{
+                    TodoListViewCell(todo: todo)
+                }
+                )
+                
             }
         }
         Spacer()
         SubTitleView(subTitle: .inProgress)
         ForEach(todos) { todo in
             if todo.status == TodoStatus.inProgress.rawValue {
-                TodoListViewCell(todo: todo)
+                NavigationLink(destination:TodoDetailView(todo: todo) , label:{
+                    TodoListViewCell(todo: todo)
+                }
+                )
+
             }
         }
         Spacer()
         SubTitleView(subTitle: .done)
         ForEach(todos) { todo in
             if todo.status == TodoStatus.done.rawValue {
-                TodoListViewCell(todo: todo)
+                NavigationLink(destination:TodoDetailView(todo: todo) , label:{
+                    TodoListViewCell(todo: todo)
+                }
+                )
             }
         }
         Spacer()
         
-        }
+    }
 }
 
 // MARK: - TODOListCellView
 private struct TodoListViewCell: View {
-    var todo: Todo
+    let todo: Todo
     fileprivate var body: some View {
         ZStack {
             Rectangle()
                 .foregroundStyle(
                     todo.status == "Todo" ? .todo :
-                    todo.status == "Done" ? .done : .inProgress)
+                        todo.status == "Done" ? .done : .inProgress)
                 .cornerRadius(24)
             VStack {
                 HStack {
@@ -124,19 +135,20 @@ private struct TodoListViewCell: View {
                     .frame(height: 60)
                 if todo.endDate != nil {
                     HStack{
-                        Text("data: \(todo.startDate)-\(String(describing: todo.endDate))")
+                        Text("data: \(todo.startDate.fromattedDateString)-\(String(describing: todo.endDate!.fromattedDateString))")
                             .font(.system(size:16, weight: .bold ))
                             .foregroundStyle(.white)
                         Spacer()
                     }
-                    } else {
-                        HStack {
-                            Text("data: \(todo.startDate)")
-                                .font(.system(size:16, weight: .bold ))
-                                .foregroundStyle(.white)
-                        }
+                } else {
+                    HStack {
+                        Text("data: \(todo.startDate.fromattedDateString)")
+                            .font(.system(size:16, weight: .bold ))
+                            .foregroundStyle(.white)
+                        Spacer()
                     }
-               
+                }
+                
             }.padding(16)
         }
     }
