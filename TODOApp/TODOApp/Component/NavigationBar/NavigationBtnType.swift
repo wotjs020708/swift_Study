@@ -9,5 +9,5 @@ import Foundation
 
 enum NvaigationBtnType {
     case add
-
+    case delete
 }
