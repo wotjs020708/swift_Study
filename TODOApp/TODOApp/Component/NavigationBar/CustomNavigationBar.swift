@@ -52,6 +52,9 @@ struct CustomNavigationBar: View {
                             if rightBtnType == .add {
                                 Image(systemName: "plus")
                                     .foregroundStyle(.black)
+                            } else if rightBtnType == .delete {
+                                Image(systemName: "trash")
+                                    .foregroundStyle(.black)
                             }
                         
                     })

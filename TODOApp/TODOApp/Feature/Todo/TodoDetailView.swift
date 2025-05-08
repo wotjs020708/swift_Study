@@ -8,13 +8,20 @@
 import SwiftUI
 
 struct TodoDetailView: View {
+    @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     var todo: Todo
     var body: some View {
         
-        CustomNavigationBar(leftBtnAction: {
-            dismiss()
-        })
+        CustomNavigationBar(
+            leftBtnAction: {
+                dismiss()
+            },
+            rightBtnAction: {
+                modelContext.delete(todo)
+                dismiss()
+            },
+            rightBtnType: .delete,)
         NavigationStack {
             HStack{
                 Text(todo.title)
@@ -57,7 +64,7 @@ struct TodoDetailView: View {
                     .font(.system(size: 16,weight: .bold))
                 Spacer()
             }
-          
+            
             StateButton(todo: todo, todoState: .todo)
             StateButton(todo: todo, todoState: .inProgress)
             StateButton(todo: todo, todoState: .done)
@@ -104,7 +111,7 @@ private struct StateButton: View {
                     }
                     
                 }
-                  
+                
             }
             
         })

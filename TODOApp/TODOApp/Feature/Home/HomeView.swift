@@ -75,42 +75,51 @@ private struct SubTitleView: View {
 // MARK: - TODOListView
 private struct TodoListView: View {
     var todos: [Todo]
+    let sections: [TodoStatus] = [.todo, .inProgress, .done]
     
     fileprivate var body: some View {
-
-        SubTitleView(subTitle: .todo)
-        ForEach(todos) { todo in
-            if todo.status == TodoStatus.todo.rawValue {
-                NavigationLink(destination:TodoDetailView(todo: todo) , label:{
+        ForEach(sections, id: \.self) { section in
+            SubTitleView(subTitle: section)
+            ForEach(todos.filter { $0.status == section.rawValue }) { todo in
+                NavigationLink(destination: TodoDetailView(todo: todo)) {
                     TodoListViewCell(todo: todo)
                 }
-                )
-                
             }
+            Spacer()
         }
-        Spacer()
-        SubTitleView(subTitle: .inProgress)
-        ForEach(todos) { todo in
-            if todo.status == TodoStatus.inProgress.rawValue {
-                NavigationLink(destination:TodoDetailView(todo: todo) , label:{
-                    TodoListViewCell(todo: todo)
-                }
-                )
-
-            }
-        }
-        Spacer()
-        SubTitleView(subTitle: .done)
-        ForEach(todos) { todo in
-            if todo.status == TodoStatus.done.rawValue {
-                NavigationLink(destination:TodoDetailView(todo: todo) , label:{
-                    TodoListViewCell(todo: todo)
-                }
-                )
-            }
-        }
-        Spacer()
-        
+//        SubTitleView(subTitle: .todo)
+//        ForEach(todos) { todo in
+//            if todo.status == TodoStatus.todo.rawValue {
+//                NavigationLink(destination:TodoDetailView(todo: todo) , label:{
+//                    TodoListViewCell(todo: todo)
+//                }
+//                )
+//                
+//            }
+//        }
+//        Spacer()
+//        SubTitleView(subTitle: .inProgress)
+//        ForEach(todos) { todo in
+//            if todo.status == TodoStatus.inProgress.rawValue {
+//                NavigationLink(destination:TodoDetailView(todo: todo) , label:{
+//                    TodoListViewCell(todo: todo)
+//                }
+//                )
+//
+//            }
+//        }
+//        Spacer()
+//        SubTitleView(subTitle: .done)
+//        ForEach(todos) { todo in
+//            if todo.status == TodoStatus.done.rawValue {
+//                NavigationLink(destination:TodoDetailView(todo: todo) , label:{
+//                    TodoListViewCell(todo: todo)
+//                }
+//                )
+//            }
+//        }
+//        Spacer()
+//        
     }
 }
 
