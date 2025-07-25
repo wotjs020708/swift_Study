@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct TCA_Simple_tutorialApp: App {
+    static let store = Store(initialState: Todos.State()) {
+        Todos()
+            ._printChanges()
+    }
     var body: some Scene {
+       
         WindowGroup {
-            CounterView()
+            AppView(store: Self.store, )
         }
     }
 }
