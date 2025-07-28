@@ -15,9 +15,8 @@ struct TCA_Simple_tutorialApp: App {
             ._printChanges()
     }
     var body: some Scene {
-       
         WindowGroup {
-            AppView(store: Self.store, )
+            AppView(store: Self.store)
         }
     }
 }
