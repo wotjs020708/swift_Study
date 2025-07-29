@@ -6,12 +6,19 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
+// MAKR: - 단계 4: 앱 진입점
 
 @main
 struct TCA_Simple_ComponentApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView(
+                store: Store(
+                    initialState: MainFeature.State(),
+                    reducer: { MainFeature() }
+                )
+            )
         }
     }
 }
