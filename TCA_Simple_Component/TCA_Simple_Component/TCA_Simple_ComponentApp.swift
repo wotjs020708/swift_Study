@@ -13,10 +13,19 @@ import ComposableArchitecture
 struct TCA_Simple_ComponentApp: App {
     var body: some Scene {
         WindowGroup {
-            MainView(
+            AdvancedView(
                 store: Store(
-                    initialState: MainFeature.State(),
-                    reducer: { MainFeature() }
+                    initialState: AdvancedFeature.State(
+                        counters: [
+                            CounterFeature.State(count: 5),
+                            CounterFeature.State(count: 10),
+                                  ],
+                        todos: [
+                            TodoItem.State(title: "TCA 공부하기", priority: .high),
+                            TodoItem.State(title: "SwiftUI 연습하기", priority: .normal)
+                        ]
+                    ),
+                    reducer: { AdvancedFeature() }
                 )
             )
         }

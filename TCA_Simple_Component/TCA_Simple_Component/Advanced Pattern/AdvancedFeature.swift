@@ -39,15 +39,15 @@ struct AdvancedFeature {
         
         enum Theme: String, CaseIterable {
             case light = "라이트"
-            case drak = "다크"
+            case dark = "다크"
             case auto = "자동"
         }
     }
     
-    enum Action {
+    enum Action: Equatable {
         // 카운터 관련 액션들
         case addCounter
-        case removecounter(id: CounterFeature.State.ID)
+        case removeCounter(id: CounterFeature.State.ID)
         case counter(id: CounterFeature.State.ID, action: CounterFeature.Action)
         
         // Todo 관련 애션들
@@ -57,7 +57,7 @@ struct AdvancedFeature {
         
         // 글로벌 액션들
         case toggleGlobalEnabled
-        case changeThem(State.Theme)
+        case changeTheme(State.Theme)
         case resetAll
         
         // 복합 액션들
@@ -65,7 +65,7 @@ struct AdvancedFeature {
         case resetAllCounters
     }
     
-        
+    
     var body: some ReducerOf<Self> {
         Reduce { state , action in
             switch action {
@@ -74,7 +74,7 @@ struct AdvancedFeature {
                 let newCounter = CounterFeature.State()
                 state.counters.append(newCounter)
                 return .none
-            case .removecounter(let id):
+            case .removeCounter(let id):
                 state.counters.remove(id: id)
                 return .none
                 
@@ -95,7 +95,7 @@ struct AdvancedFeature {
                     state.counters[id : id]?.isEnabled = state.isGlobalEnabled
                 }
                 return .none
-            case .changeThem(let theme):
+            case .changeTheme(let theme):
                 state.theme = theme
                 return .none
                 
@@ -112,14 +112,15 @@ struct AdvancedFeature {
                 
             case .resetAllCounters:
                 for id in state.counters.ids {
-                    state.counters[id : id]?.count = 0
+                    state.counters[id: id]?.count = 0
                 }
                 return .none
-            
+                
             case .counter, .todo:
                 // 자식 Feature들의 액션은 아래 forEach에서 처리
                 return .none
             }
+            
         }
         .forEach(\.counters, action: \.counter) {
             CounterFeature()
