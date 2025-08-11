@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
-
+import ComposableArchitecture
 @main
 struct TCAModalApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ParentView(
+                store: Store(initialState: ParentFeature.State()){
+                     ParentFeature()
+                }
+            )
         }
     }
 }
